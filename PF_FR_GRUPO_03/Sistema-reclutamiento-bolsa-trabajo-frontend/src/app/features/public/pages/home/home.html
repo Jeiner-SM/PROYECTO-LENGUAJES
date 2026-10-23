@@ -1,0 +1,156 @@
+<div class="hero-section">
+  <div class="hero-container">
+    <div class="hero-left">
+      <div class="badge">
+        <span class="badge-icon"></span>
+        <span>Plataforma de empleo #1 en Perú</span>
+      </div>
+
+      <h1 class="hero-title">
+        Encuentra oportunidades,<br>
+        <span class="highlight">construye tu futuro</span>
+      </h1>
+
+      <p class="hero-description">
+        Conecta profesionales con empresas líderes y encuentra el empleo ideal. Varios profesionales ya confían en nosotros, se uno de ellos.
+      </p>
+
+      <div class="search-card">
+        <div class="search-inputs">
+          <div class="search-field">
+            <label>Cargo</label>
+            <div class="field-inner">
+              <i class="pi pi-briefcase"></i>
+              <input pInputText type="text" placeholder="Ej. Analista de datos" [(ngModel)]="searchPosition" />
+            </div>
+          </div>
+          <div class="search-field">
+            <label>Ubicación</label>
+            <div class="field-inner">
+              <i class="pi pi-map-marker"></i>
+              <input pInputText type="text" placeholder="Ej. Lima" [(ngModel)]="searchLocation" />
+            </div>
+          </div>
+          <button class="btn btn-primary search-button" (click)="searchJobs()" [disabled]="loading">
+            <i class="pi pi-spin pi-spinner" *ngIf="loading"></i>
+            <i class="pi pi-search" *ngIf="!loading"></i>
+            {{ loading ? 'Buscando...' : 'Buscar' }}
+          </button>
+        </div>
+
+        <div class="search-tags">
+          <span>Buscar rápido:</span>
+          @for (tag of searchTags; track tag) {
+            <button type="button" class="tag-pill" (click)="searchByTag(tag)">{{ tag }}</button>
+          }
+        </div>
+      </div>
+
+      <div class="hero-buttons">
+        <button class="btn btn-secondary" (click)="navigateToJobs()">
+          <i class="pi pi-list"></i>
+          Ver ofertas
+        </button>
+        <button class="btn btn-secondary" (click)="registerNow()">
+          <i class="pi pi-user"></i>
+          Crear cuenta
+        </button>
+      </div>
+
+      <div class="hero-features">
+        <div class="feature-item">
+          <i class="pi pi-check"></i>
+          <span>Gratis</span> Registro
+        </div>
+        <div class="feature-item">
+          <i class="pi pi-check"></i>
+          <span>24h</span> Soporte
+        </div>
+        <div class="feature-item">
+          <i class="pi pi-check"></i>
+          <span>100%</span> Seguro
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-image">
+        <img src="https://img.magnific.com/fotos-premium/grupo-empresarios-sentados-sillas-fila-trabajando-equipo-irreconocible-gadgets-comunicacion-concepto-tecnologias-modernas-espacio-copia_116547-5552.jpg?semt=ais_hybrid&w=740&q=80" alt="Equipo de trabajo" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stats-section">
+  <div class="stats-container">
+    <div class="stat-item">
+      <i class="pi pi-building"></i>
+      <div class="stat-value">{{ stats.registeredCompanies | number:'1.0-0' }}+</div>
+      <div class="stat-label">Empresas registradas</div>
+    </div>
+    <div class="stat-item">
+      <i class="pi pi-briefcase"></i>
+      <div class="stat-value">{{ stats.totalJobs | number:'1.0-0' }}+</div>
+      <div class="stat-label">Ofertas disponibles</div>
+    </div>
+    <div class="stat-item">
+      <i class="pi pi-users"></i>
+      <div class="stat-value">{{ stats.activeApplicants | number:'1.0-0' }}+</div>
+      <div class="stat-label">Profesionales conectados</div>
+    </div>
+  </div>
+</div>
+
+<div class="features-section">
+  <div class="features-container">
+    <h2>Todo lo que necesitas en un solo lugar</h2>
+    <p>Una plataforma completa diseñada para conectar empresas y profesionales de forma eficiente.</p>
+
+    <div class="features-grid">
+      @for (feature of features; track feature.title) {
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i [class]="feature.icon"></i>
+          </div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<div class="featured-jobs-section">
+  <div class="featured-jobs-container">
+    <div class="section-header">
+      <h2>Ofertas destacadas</h2>
+      <p>Las oportunidades más recientes del mercado</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
+      @for( oferta of ofertas(); track oferta.id) {
+        <app-oferta-card [oferta]="oferta"></app-oferta-card>
+      }
+      
+      @empty {
+        <div class="no-results" style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+          <p>No se encontraron ofertas en este momento.</p>
+        </div>
+      }
+    </div>
+
+    <div class="view-all-link">
+      <a (click)="navigateToJobs()" style="cursor:pointer;" class="link-button">Ver todas <i class="pi pi-arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <div class="cta-content">
+    <h2>¿Listo para dar el siguiente paso?</h2>
+    <p>Únete a miles de profesionales y empresas que ya encontraron su match perfecto en TalentHub.</p>
+    <button class="btn btn-cta" (click)="registerNow()">
+      Crear cuenta gratis
+    </button>
+  </div>
+</div>

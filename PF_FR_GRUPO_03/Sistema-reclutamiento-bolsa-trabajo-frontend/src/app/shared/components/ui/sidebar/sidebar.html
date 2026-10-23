@@ -1,0 +1,39 @@
+<aside class="sidebar">
+
+  <div class="logo">
+    <div class="logo-mark">
+      <i class="pi pi-bolt"></i>
+    </div>
+    <span class="logo-name">Talent
+Hub</span>
+  </div>
+
+  <span class="section-label">Principal</span>
+
+  @for (item of menuItems(); track item.route) {
+
+     <a [routerLink]="item.route"
+      routerLinkActive="active"
+      class="nav-item">
+      <i [class]="item.icon"></i>
+      {{ item.label }}
+      @if (item.badgeKey === 'empresasPendientes' && empresasPendientes() > 0) {
+        <span class="nav-badge">{{ empresasPendientes() }}</span>
+      }
+    </a>
+  }
+
+  
+
+  <div class="spacer"></div>
+
+  <div class="user-card" (click)="logout()">
+    <div class="user-avatar">{{ iniciales() }}</div>
+    <div class="user-info">
+      <div class="user-name">{{ nombreUsuario() }}</div>
+      <div class="user-role">{{ rolUsuario() }}</div>
+    </div>
+    <i class="pi pi-sign-out user-icon"></i>
+  </div>
+
+</aside>

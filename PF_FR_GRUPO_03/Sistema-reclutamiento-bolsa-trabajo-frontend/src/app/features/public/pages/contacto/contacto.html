@@ -1,0 +1,64 @@
+<section class="page-shell py-16" style="background-color: #f9fafb; min-height: 100vh;">
+  <p-toast />
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold" style="color: #1e5f74;">Contáctanos</h1>
+      <p class="mt-4 text-gray-600">¿Tienes alguna duda o sugerencia? Escríbenos y te responderemos a la brevedad.</p>
+    </div>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+      @if (enviado) {
+        <div class="mb-6 bg-green-50 text-green-800 p-4 rounded-lg flex items-center gap-3">
+          <i class="pi pi-check-circle text-xl"></i>
+          <p class="font-medium">¡Mensaje enviado con éxito! Te contactaremos pronto.</p>
+        </div>
+      }
+
+      <form [formGroup]="contactoForm" (ngSubmit)="enviarMensaje()" class="space-y-6">
+        
+        <div class="form-group">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre completo</label>
+          <input type="text" formControlName="nombre" placeholder="Ej. Juan Pérez" 
+                 class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2"
+                 [ngClass]="{'border-red-500 bg-red-50': tieneError('nombre', 'required') || tieneError('nombre', 'minlength'), 'border-gray-300 focus:ring-[#1e5f74]': !tieneError('nombre', 'required') && !tieneError('nombre', 'minlength')}">
+          
+          @if (tieneError('nombre', 'required')) { <span class="text-red-500 text-xs mt-1 block">El nombre es obligatorio.</span> }
+          @if (tieneError('nombre', 'minlength')) { <span class="text-red-500 text-xs mt-1 block">Debe tener al menos 3 caracteres.</span> }
+        </div>
+
+        <div class="form-group">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Correo electrónico</label>
+          <input type="email" formControlName="correo" placeholder="ejemplo@correo.com"
+                 class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2"
+                 [ngClass]="{'border-red-500 bg-red-50': tieneError('correo', 'required') || tieneError('correo', 'email'), 'border-gray-300 focus:ring-[#1e5f74]': !tieneError('correo', 'required') && !tieneError('correo', 'email')}">
+          
+          @if (tieneError('correo', 'required')) { <span class="text-red-500 text-xs mt-1 block">El correo es obligatorio.</span> }
+          @if (tieneError('correo', 'email')) { <span class="text-red-500 text-xs mt-1 block">Formato de correo no válido.</span> }
+        </div>
+
+        <div class="form-group">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Asunto</label>
+          <input type="text" formControlName="asunto" placeholder="¿De qué trata tu mensaje?"
+                 class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 border-gray-300 focus:ring-[#1e5f74]">
+          
+          @if (tieneError('asunto', 'required')) { <span class="text-red-500 text-xs mt-1 block">El asunto es obligatorio.</span> }
+          @if (tieneError('asunto', 'minlength')) { <span class="text-red-500 text-xs mt-1 block">Mínimo 5 caracteres.</span> }
+        </div>
+
+        <div class="form-group">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Mensaje</label>
+          <textarea formControlName="mensaje" rows="5" placeholder="Escribe tu consulta aquí..."
+                    class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 border-gray-300 focus:ring-[#1e5f74]"></textarea>
+          
+          @if (tieneError('mensaje', 'required')) { <span class="text-red-500 text-xs mt-1 block">El mensaje es obligatorio.</span> }
+          @if (tieneError('mensaje', 'minlength')) { <span class="text-red-500 text-xs mt-1 block">Mínimo 15 caracteres para explicar tu consulta.</span> }
+        </div>
+
+        <button type="submit" [disabled]="enviando" class="w-full text-white font-bold py-3 rounded-lg transition-colors mt-4 disabled:opacity-60"
+                style="background-color: #1e5f74;">
+          {{ enviando ? 'Enviando...' : 'Enviar Mensaje' }} <i class="pi pi-send ml-2"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

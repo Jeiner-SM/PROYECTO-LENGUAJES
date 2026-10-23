@@ -1,0 +1,19 @@
+# Angular / Node
+node_modules/
+dist/
+.angular/
+coverage/
+
+# Java / Spring Boot
+target/
+.gradle/
+build/
+
+# Archivos de IDE
+.idea/
+.vscode/
+*.iml
+
+# Archivos sensibles
+.env
+.env.*

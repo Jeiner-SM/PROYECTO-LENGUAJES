@@ -1,0 +1,103 @@
+<div class="page">
+
+  <p-toast />
+
+  <div class="page-header">
+    <div class="page-title">
+      <h1>Editar Oferta</h1>
+      <p>Actualiza los datos de la oferta laboral</p>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="form-card">
+      <p-skeleton height="42px" styleClass="mb-3" borderRadius="10px" />
+      <p-skeleton height="120px" styleClass="mb-3" borderRadius="10px" />
+      <p-skeleton height="42px" styleClass="mb-3" borderRadius="10px" />
+    </div>
+  } @else {
+    <div class="form-card">
+      <form [formGroup]="ofertaForm" (ngSubmit)="guardar()">
+
+        <div class="field">
+          <label for="titulo">Título de la oferta *</label>
+          <input
+            pInputText
+            id="titulo"
+            formControlName="titulo"
+            class="w-full" />
+          @if (tieneError('titulo', 'required')) {
+            <small class="error">El título es obligatorio.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="descripcion">Descripción *</label>
+          <textarea
+            id="descripcion"
+            formControlName="descripcion"
+            rows="5"
+            class="textarea-field"></textarea>
+          @if (tieneError('descripcion', 'required')) {
+            <small class="error">La descripción es obligatoria.</small>
+          }
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="ubicacion">Ubicación *</label>
+            <input
+              pInputText
+              id="ubicacion"
+              formControlName="ubicacion"
+              class="w-full" />
+            @if (tieneError('ubicacion', 'required')) {
+              <small class="error">La ubicación es obligatoria.</small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="salario">Salario (S/) *</label>
+            <p-inputnumber
+              inputId="salario"
+              formControlName="salario"
+              mode="currency"
+              currency="PEN"
+              locale="es-PE"
+              [min]="0"
+              styleClass="w-full" />
+          </div>
+
+          <div class="field">
+            <label for="modalidad">Modalidad *</label>
+            <p-select
+              inputId="modalidad"
+              formControlName="modalidad"
+              [options]="modalidadesDisponibles"
+              optionLabel="label"
+              optionValue="value"
+              styleClass="w-full" />
+          </div>
+
+          <div class="field">
+            <label for="estado">Estado *</label>
+            <p-select
+              inputId="estado"
+              formControlName="estado"
+              [options]="estadosDisponibles"
+              optionLabel="label"
+              optionValue="value"
+              styleClass="w-full" />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button pButton type="button" label="Cancelar" severity="secondary" [text]="true" (click)="cancelar()"></button>
+          <button pButton type="submit" label="Guardar cambios" icon="pi pi-check" class="btn-primary" [loading]="guardando"></button>
+        </div>
+
+      </form>
+    </div>
+  }
+
+</div>

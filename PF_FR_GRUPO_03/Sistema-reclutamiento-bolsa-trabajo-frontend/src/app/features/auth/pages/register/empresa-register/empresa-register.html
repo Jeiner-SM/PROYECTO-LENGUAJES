@@ -1,0 +1,131 @@
+<div class="page-shell py-16 bg-gray-50 min-h-screen">
+  <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-lg overflow-hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="p-10 bg-[#1e5f74] text-white">
+        <h1 class="text-3xl font-bold mb-4">Registro de Empresa</h1>
+        <p class="text-sm leading-relaxed text-gray-200">
+          Crea la cuenta de tu empresa para publicar ofertas y encontrar al mejor talento.
+        </p>
+
+        <div class="mt-8 space-y-5 text-sm text-gray-200">
+          <div>
+            <span class="font-semibold">Datos de la empresa</span>
+            <p>RUC, razón social y nombre comercial para validar tu cuenta.</p>
+          </div>
+          <div>
+            <span class="font-semibold">Cuenta de acceso</span>
+            <p>Los datos de la persona que administrará las publicaciones.</p>
+          </div>
+          <div>
+            <span class="font-semibold">Validación</span>
+            <p>Tu cuenta quedará "Pendiente" hasta ser revisada por el equipo de TalentHub.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-10">
+        <div class="mb-6">
+          <button
+            type="button"
+            pButton
+            label="Atrás"
+            icon="pi pi-arrow-left"
+            severity="secondary"
+            [outlined]="true"
+            (click)="goBack()"></button>
+        </div>
+        <form [formGroup]="empresaForm" (ngSubmit)="registrar()" class="space-y-6">
+
+          <div class="form-group">
+            <label class="label">Nombre comercial</label>
+            <input type="text" pInputText formControlName="nombreEmpresa" placeholder="Ej. TalentHub Perú" />
+            @if (tieneError('nombreEmpresa', 'required')) {
+              <small class="error-text">El nombre de la empresa es obligatorio.</small>
+            }
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Razón social</label>
+              <input type="text" pInputText formControlName="razonSocial" placeholder="Ej. TalentHub Perú S.A.C." />
+              @if (tieneError('razonSocial', 'required')) {
+                <small class="error-text">La razón social es obligatoria.</small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="label">RUC</label>
+              <input type="text" pInputText formControlName="ruc" placeholder="20123456789" maxlength="11" />
+              @if (tieneError('ruc', 'required')) {
+                <small class="error-text">El RUC es obligatorio.</small>
+              }
+              @if (tieneError('ruc', 'pattern')) {
+                <small class="error-text">El RUC debe tener 11 dígitos numéricos.</small>
+              }
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Dirección <span class="optional">(opcional)</span></label>
+              <input type="text" pInputText formControlName="direccion" placeholder="Av. Ejemplo 123, Lima" />
+            </div>
+            <div class="form-group">
+              <label class="label">Página web <span class="optional">(opcional)</span></label>
+              <input type="text" pInputText formControlName="paginaWeb" placeholder="https://miempresa.com" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="label">Descripción de la empresa <span class="optional">(opcional)</span></label>
+            <textarea pInputText rows="3" formControlName="descripcion" placeholder="Cuéntanos a qué se dedica tu empresa..."></textarea>
+          </div>
+
+          <hr class="divider" />
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Nombre del contacto</label>
+              <input type="text" pInputText formControlName="nombreContacto" placeholder="Ej. Ana" />
+              @if (tieneError('nombreContacto', 'required')) {
+                <small class="error-text">El nombre es obligatorio.</small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="label">Apellido del contacto</label>
+              <input type="text" pInputText formControlName="apellidoContacto" placeholder="Ej. Torres" />
+              @if (tieneError('apellidoContacto', 'required')) {
+                <small class="error-text">El apellido es obligatorio.</small>
+              }
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Correo electrónico</label>
+              <input type="email" pInputText formControlName="correo" placeholder="contacto@miempresa.com" />
+              @if (tieneError('correo', 'required')) {
+                <small class="error-text">El correo es obligatorio.</small>
+              }
+              @if (tieneError('correo', 'email')) {
+                <small class="error-text">Ingresa un correo válido.</small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="label">Contraseña</label>
+              <p-password formControlName="password" placeholder="Mínimo 6 caracteres" [toggleMask]="true" [feedback]="false"></p-password>
+              @if (tieneError('password', 'required')) {
+                <small class="error-text">La contraseña es obligatoria.</small>
+              }
+              @if (tieneError('password', 'minlength')) {
+                <small class="error-text">Debe tener al menos 6 caracteres.</small>
+              }
+            </div>
+          </div>
+
+          <button type="submit" pButton label="Registrar empresa" class="w-full !bg-[#1e5f74] !border-none !text-white" [disabled]="loading"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

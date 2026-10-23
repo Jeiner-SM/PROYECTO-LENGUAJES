@@ -1,0 +1,257 @@
+<div class="page">
+
+  <p-toast />
+
+  <div class="page-header">
+    <div class="page-title">
+      <h1>Gestión de Usuarios</h1>
+      <p>Administra las cuentas de postulantes y empresas registradas en la plataforma</p>
+    </div>
+  </div>
+
+  <p-tabs value="0">
+    <p-tablist>
+      <p-tab value="0">
+        <i class="pi pi-user"></i>
+        Postulantes
+      </p-tab>
+      <p-tab value="1">
+        <i class="pi pi-building"></i>
+        Empresas
+        @if (loadingPendientesCount()) {
+          <p-skeleton shape="circle" width="18px" height="18px" styleClass="tab-badge-skeleton" />
+        } @else if (empresasPendientesCount() > 0) {
+          <span class="tab-badge">{{ empresasPendientesCount() }}</span>
+        }
+      </p-tab>
+    </p-tablist>
+
+    <p-tabpanels>
+
+      <!-- ============ PESTAÑA POSTULANTES ============ -->
+      <p-tabpanel value="0">
+        <div class="table-card">
+
+          <div class="table-toolbar">
+            <p-iconfield>
+              <p-inputicon styleClass="pi pi-search" />
+              <input
+                pInputText
+                placeholder="Buscar por nombre o email..."
+                (input)="onSearchPostulantes($event)"
+                class="search-input" />
+            </p-iconfield>
+
+            <div class="filter-group">
+              <label class="filter-label">Estado</label>
+              <p-select
+                [options]="opcionesEstado"
+                [ngModel]="filtroEstadoPostulantes()"
+                (ngModelChange)="filtroEstadoPostulantes.set($event); onFiltroEstadoPostulantesChange()"
+                optionLabel="label"
+                optionValue="value"
+                styleClass="filter-select" />
+            </div>
+          </div>
+
+          @if (loadingPostulantes()) {
+            <div class="skeleton-wrap">
+              @for (i of [1,2,3,4,5]; track i) {
+                <p-skeleton height="52px" styleClass="mb-2" borderRadius="10px" />
+              }
+            </div>
+          } @else {
+            <p-table
+              [value]="postulantesFiltrados()"
+              [paginator]="true"
+              [rows]="10"
+              [rowsPerPageOptions]="[10, 25, 50]"
+              [showCurrentPageReport]="true"
+              currentPageReportTemplate="{first}–{last} de {totalRecords} postulantes"
+              paginatorDropdownAppendTo="body"
+              styleClass="p-datatable-sm custom-table"
+              [rowHover]="true"
+              dataKey="id">
+
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Usuario</th>
+                  <th>Email</th>
+                  <th>Fecha de registro</th>
+                  <th>Estado</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-usuario>
+                <tr>
+                  <td>
+                    <div class="cell-usuario">
+                      <div class="usuario-avatar">{{ usuario.nombre?.[0]?.toUpperCase() }}</div>
+                      <div class="usuario-info">
+                        <span class="usuario-nombre">{{ usuario.nombre }} {{ usuario.apellido }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="cell-email">{{ usuario.email }}</span></td>
+                  <td><span class="cell-fecha">{{ usuario.fechaCreacion | date:'dd/MM/yyyy' }}</span></td>
+                  <td>
+                    <div class="cell-estado">
+                      <p-toggleswitch
+                        [ngModel]="usuario.activo"
+                        [disabled]="cambiandoIdPostulante() === usuario.id"
+                        (onChange)="onTogglePostulante(usuario, $event.checked)" />
+                      <span class="estado-label" [class.is-activo]="usuario.activo" [class.is-inactivo]="!usuario.activo">
+                        {{ usuario.activo ? 'Habilitado' : 'Deshabilitado' }}
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="4">
+                    <div class="empty-state">
+                      <i class="pi pi-users"></i>
+                      <p>No se encontraron postulantes</p>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+
+            </p-table>
+          }
+        </div>
+      </p-tabpanel>
+
+      <!-- ============ PESTAÑA EMPRESAS ============ -->
+      <p-tabpanel value="1">
+        <div class="table-card">
+
+          <div class="table-toolbar">
+            <p-iconfield>
+              <p-inputicon styleClass="pi pi-search" />
+              <input
+                pInputText
+                placeholder="Buscar por empresa, email o RUC..."
+                (input)="onSearchEmpresas($event)"
+                class="search-input" />
+            </p-iconfield>
+
+            <div class="filter-group">
+              <label class="filter-label">Estado</label>
+              <p-select
+                [options]="opcionesEstado"
+                [ngModel]="filtroEstadoEmpresas()"
+                (ngModelChange)="filtroEstadoEmpresas.set($event); onFiltroEmpresasChange()"
+                optionLabel="label"
+                optionValue="value"
+                styleClass="filter-select" />
+            </div>
+
+            <div class="filter-group">
+              <label class="filter-label">Validación</label>
+              <p-select
+                [options]="opcionesValidacion"
+                [ngModel]="filtroValidacion()"
+                (ngModelChange)="filtroValidacion.set($event); onFiltroEmpresasChange()"
+                optionLabel="label"
+                optionValue="value"
+                styleClass="filter-select" />
+            </div>
+          </div>
+
+          @if (loadingEmpresas()) {
+            <div class="skeleton-wrap">
+              @for (i of [1,2,3,4,5]; track i) {
+                <p-skeleton height="52px" styleClass="mb-2" borderRadius="10px" />
+              }
+            </div>
+          } @else {
+            <p-table
+              [value]="empresasFiltradas()"
+              [paginator]="true"
+              [rows]="10"
+              [rowsPerPageOptions]="[10, 25, 50]"
+              [showCurrentPageReport]="true"
+              currentPageReportTemplate="{first}–{last} de {totalRecords} empresas"
+              paginatorDropdownAppendTo="body"
+              styleClass="p-datatable-sm custom-table"
+              [rowHover]="true"
+              dataKey="id">
+
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Empresa</th>
+                  <th>RUC</th>
+                  <th>Email</th>
+                  <th>Validación</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-empresa>
+                <tr>
+                  <td>
+                    <div class="cell-usuario">
+                      <div class="usuario-avatar">{{ empresa.nombreEmpresa?.[0]?.toUpperCase() }}</div>
+                      <div class="usuario-info">
+                        <span class="usuario-nombre">{{ empresa.nombreEmpresa }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="cell-email">{{ empresa.ruc }}</span></td>
+                  <td><span class="cell-email">{{ empresa.email }}</span></td>
+                  <td>
+                    <p-tag [value]="getValidacionLabel(empresa.estadoValidacion)" [severity]="getValidacionSeverity(empresa.estadoValidacion)" />
+                  </td>
+                  <td>
+                    <div class="cell-estado">
+                      <p-toggleswitch
+                        [ngModel]="empresa.activo"
+                        [disabled]="cambiandoIdEmpresa() === empresa.id"
+                        (onChange)="onToggleEmpresa(empresa, $event.checked)" />
+                      <span class="estado-label" [class.is-activo]="empresa.activo" [class.is-inactivo]="!empresa.activo">
+                        {{ empresa.activo ? 'Habilitado' : 'Deshabilitado' }}
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    @if (empresa.estadoValidacion === 'PENDIENTE') {
+                      <button
+                        pButton
+                        type="button"
+                        label="Verificar Empresa"
+                        icon="pi pi-check"
+                        size="small"
+                        [loading]="verificandoId() === empresa.id"
+                        (click)="verificarEmpresa(empresa)"
+                        class="!bg-[#1e5f74] !border-none !text-white"></button>
+                    } @else {
+                      <span class="cell-sin-accion">—</span>
+                    }
+                  </td>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="6">
+                    <div class="empty-state">
+                      <i class="pi pi-building"></i>
+                      <p>No se encontraron empresas</p>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+
+            </p-table>
+          }
+        </div>
+      </p-tabpanel>
+
+    </p-tabpanels>
+  </p-tabs>
+
+</div>

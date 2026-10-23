@@ -1,0 +1,37 @@
+<header [class.header-hidden]="!isHeaderVisible" class="header-shell">
+  <div class="header-container">
+    <div class="header-brand" routerLink="/home">
+      <span class="brand-primary">Talent</span><span class="brand-secondary">Hub</span>
+    </div>
+
+    <nav class="desktop-nav">
+      <a routerLink="/home" class="nav-link" [class.active]="activeRoute === '/home'" (click)="closeMenu()">Inicio</a>
+      <a routerLink="/empleos" class="nav-link" [class.active]="activeRoute === '/empleos'" (click)="closeMenu()">Empleos</a>
+      <a routerLink="/empresas" class="nav-link" [class.active]="activeRoute === '/empresas'" (click)="closeMenu()">Empresas</a>
+      <a routerLink="/contacto" class="nav-link" [class.active]="activeRoute === '/contacto'" (click)="closeMenu()">Contacto</a>
+    </nav>
+
+    <div class="items-center gap-3 hidden md:block">
+      <p-button label="Iniciar sesión" routerLink="/auth/login" styleClass="p-button-text"></p-button>
+      <p-button label="Registrarse" routerLink="/auth/register"></p-button>
+    </div>
+
+    <button class="mobile-toggle" type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" [class.open]="menuOpen">
+    <a routerLink="/home" class="mobile-link" [class.active]="activeRoute === '/home'" (click)="closeMenu()">Inicio</a>
+    <a routerLink="/empleos" class="mobile-link" [class.active]="activeRoute === '/empleos'" (click)="closeMenu()">Empleos</a>
+    <a routerLink="/empresas" class="mobile-link" [class.active]="activeRoute === '/empresas'" (click)="closeMenu()">Empresas</a>
+    <a routerLink="/contacto" class="mobile-link" [class.active]="activeRoute === '/contacto'" (click)="closeMenu()">Contacto</a>
+
+    <div class="flex items-center gap-3">
+      <p-button label="Iniciar sesión" routerLink="/auth/login" styleClass="p-button-text"></p-button>
+      <p-button label="Registrarse" routerLink="/auth/register"></p-button>
+    </div>
+  </div>
+</header>

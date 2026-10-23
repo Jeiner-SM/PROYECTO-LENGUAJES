@@ -1,0 +1,30 @@
+<div class="empresa-card">
+
+    <div class="empresa-header">
+
+        <div class="avatar">
+            {{ empresa.nombreEmpresa[0] }}
+        </div>
+
+        <div class="empresa-info">
+            <h3>{{ empresa.nombreEmpresa }}</h3>
+            <p>{{ empresa.razonSocial }}</p>
+        </div>
+
+    </div>
+
+    <div class="empresa-body">
+
+        <div class="info-item">
+            <i class="pi pi-id-card"></i>
+            <span>{{ empresa.ruc }}</span>
+        </div>
+
+        <div class="info-item">
+            <i class="pi pi-envelope"></i>
+            <span>{{ empresa.usuarioEmail }}</span>
+        </div>
+
+    </div>
+
+</div>

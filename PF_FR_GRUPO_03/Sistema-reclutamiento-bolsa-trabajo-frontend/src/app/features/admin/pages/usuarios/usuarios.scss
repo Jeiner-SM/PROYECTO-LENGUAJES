@@ -1,0 +1,230 @@
+.page {
+  padding: 2rem;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+}
+
+.table-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-toolbar {
+  padding: 1.2rem 1.4rem;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  .search-input {
+    width: 320px;
+    border-radius: 10px !important;
+    border-color: #e2e8f0 !important;
+    font-size: 0.875rem;
+
+    &:focus { border-color: #0f3d56 !important; }
+  }
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .filter-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    white-space: nowrap;
+  }
+}
+
+:host ::ng-deep .filter-select {
+  min-width: 170px;
+
+  &.p-select {
+    border-radius: 10px !important;
+    border-color: #e2e8f0 !important;
+    min-height: 2.4rem;
+  }
+}
+
+.cell-sin-accion {
+  color: #cbd5e1;
+  font-size: 0.85rem;
+}
+
+// Tabs (PrimeNG v20 "Tabs" API: p-tabs / p-tablist / p-tab / p-tabpanels).
+:host ::ng-deep {
+  .p-tablist {
+    margin-bottom: 1.2rem;
+  }
+
+  .p-tab {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #64748b;
+    gap: 8px;
+
+    &.p-tab-active {
+      color: #1e5f74;
+    }
+  }
+
+  .p-tablist-active-bar {
+    background: #1e5f74 !important;
+  }
+}
+
+.tab-badge {
+  margin-left: 6px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+}
+
+:host ::ng-deep .tab-badge-skeleton {
+  margin-left: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.skeleton-wrap {
+  padding: 1.2rem 1.4rem;
+}
+
+.cell-usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .usuario-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0f3d56, #1c5a7d);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .usuario-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .usuario-nombre {
+    font-size: 0.875rem;
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  .usuario-sub {
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+}
+
+.cell-email {
+  font-size: 0.875rem;
+  color: #475569;
+}
+
+.cell-fecha {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.cell-estado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .estado-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    &.is-activo { color: #15803d; }
+    &.is-inactivo { color: #b91c1c; }
+  }
+}
+
+.empty-state {
+  padding: 3rem;
+  text-align: center;
+  color: #94a3b8;
+
+  i {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  p { margin: 0; font-size: 0.9rem; }
+}
+
+::ng-deep {
+  .custom-table {
+    .p-datatable-thead > tr > th {
+      background: #f8fafc !important;
+      color: #64748b !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 0.9rem 1rem !important;
+    }
+
+    .p-datatable-tbody > tr {
+      border-bottom: 1px solid #f1f5f9 !important;
+
+      > td {
+        padding: 0.85rem 1rem !important;
+        border: none !important;
+      }
+
+      &:hover > td {
+        background: #f8fafc !important;
+      }
+    }
+
+    .p-paginator {
+      background: transparent !important;
+      border-top: 1px solid #f1f5f9 !important;
+      padding: 0.75rem 1rem !important;
+      font-size: 0.85rem;
+    }
+  }
+}

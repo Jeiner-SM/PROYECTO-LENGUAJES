@@ -1,0 +1,220 @@
+.page {
+  padding: 2rem;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+}
+
+// ── Métricas ──────────────────────────────────────────
+.metrics-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-left: 4px solid #e2e8f0;
+
+  &.empresas { border-left-color: #1e5f74; }
+  &.deshabilitados { border-left-color: #ef4444; }
+  &.mensajes { border-left-color: #6366f1; }
+
+  .metric-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1;
+  }
+}
+
+// ── Accesos rápidos ───────────────────────────────────
+.shortcuts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.shortcut-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.1rem 1.3rem;
+  cursor: pointer;
+  text-align: left;
+  transition: box-shadow .15s ease, border-color .15s ease;
+
+  &:hover {
+    border-color: #1e5f74;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, .06);
+  }
+
+  > i:first-child {
+    font-size: 1.4rem;
+    color: #1e5f74;
+    background: #eef6f8;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+
+  .shortcut-title {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.95rem;
+  }
+
+  .shortcut-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+
+  .shortcut-arrow {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+  }
+}
+
+// ── Tabla / lista ─────────────────────────────────────
+.table-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-toolbar {
+  padding: 1.2rem 1.4rem;
+  border-bottom: 1px solid #f1f5f9;
+
+  .toolbar-title {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.95rem;
+  }
+}
+
+.skeleton-wrap {
+  padding: 1.2rem 1.4rem;
+}
+
+.mini-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.9rem 1.4rem;
+  border-bottom: 1px solid #f1f5f9;
+
+  &:last-child { border-bottom: none; }
+
+  .mini-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0f3d56, #1c5a7d);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .mini-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mini-nombre {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.875rem;
+  }
+
+  .mini-email {
+    font-weight: 400;
+    color: #94a3b8;
+    font-size: 0.78rem;
+  }
+
+  .mini-asunto {
+    font-size: 0.8rem;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mini-fecha {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    flex-shrink: 0;
+  }
+}
+
+.empty-state {
+  padding: 3rem;
+  text-align: center;
+  color: #94a3b8;
+
+  i {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  p { margin: 0; font-size: 0.9rem; }
+}

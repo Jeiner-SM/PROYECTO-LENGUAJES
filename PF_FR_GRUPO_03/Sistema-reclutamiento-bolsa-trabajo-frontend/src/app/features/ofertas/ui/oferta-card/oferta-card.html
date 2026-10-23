@@ -1,0 +1,39 @@
+<div class="card_contenedor" [routerLink]="['/dashboard/ofertas', oferta.id]">
+
+  <div class="header">
+
+    <div class="empresa">
+      <div class="avatar">{{ resultado }}</div>
+
+      <div class="info">
+        <h3>{{ oferta.titulo }}</h3>
+        <span class="empresa-nombre">{{ oferta.nombreEmpresa }}</span>
+      </div>
+    </div>
+
+    <span
+      class="estado"
+      [class.activo]="isActiva"
+      [class.inactivo]="!isActiva">
+      {{ estadoLabel }}
+    </span>
+
+  </div>
+
+  <div class="contenido">
+
+    <div class="detalle">
+      <span>📍 {{ oferta.ubicacion }}</span>
+      <span>💰 S/ {{ oferta.salario }}</span>
+    </div>
+
+    <div class="footer">
+      @if (modalidadLabel) {
+        <span class="tag">{{ modalidadLabel }}</span>
+      }
+      <span class="fecha">Ver detalle →</span>
+    </div>
+
+  </div>
+
+</div>

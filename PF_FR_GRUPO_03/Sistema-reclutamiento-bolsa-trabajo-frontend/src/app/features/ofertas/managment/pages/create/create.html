@@ -1,0 +1,103 @@
+<div class="page">
+
+  <p-toast />
+
+  <div class="page-header">
+    <div class="page-title">
+      <h1>Publicar Empleo</h1>
+      <p>Completa los datos de la nueva oferta laboral</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <form [formGroup]="ofertaForm" (ngSubmit)="publicar()">
+
+      <div class="field">
+        <label for="titulo">Título de la oferta *</label>
+        <input
+          pInputText
+          id="titulo"
+          formControlName="titulo"
+          placeholder="Ej. Desarrollador Frontend Senior"
+          class="w-full" />
+        @if (tieneError('titulo', 'required')) {
+          <small class="error">El título es obligatorio.</small>
+        }
+        @if (tieneError('titulo', 'minlength')) {
+          <small class="error">El título debe tener al menos 3 caracteres.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="descripcion">Descripción *</label>
+        <textarea
+          id="descripcion"
+          formControlName="descripcion"
+          rows="5"
+          class="textarea-field"
+          placeholder="Describe las responsabilidades, requisitos y beneficios del puesto..."></textarea>
+        @if (tieneError('descripcion', 'required')) {
+          <small class="error">La descripción es obligatoria.</small>
+        }
+        @if (tieneError('descripcion', 'minlength')) {
+          <small class="error">La descripción debe tener al menos 10 caracteres.</small>
+        }
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ubicacion">Ubicación *</label>
+          <input
+            pInputText
+            id="ubicacion"
+            formControlName="ubicacion"
+            placeholder="Ej. Lima, Perú"
+            class="w-full" />
+          @if (tieneError('ubicacion', 'required')) {
+            <small class="error">La ubicación es obligatoria.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="salario">Salario (S/) *</label>
+          <p-inputnumber
+            inputId="salario"
+            formControlName="salario"
+            mode="currency"
+            currency="PEN"
+            locale="es-PE"
+            [min]="0"
+            styleClass="w-full" />
+          @if (tieneError('salario', 'required')) {
+            <small class="error">El salario es obligatorio.</small>
+          }
+          @if (tieneError('salario', 'min')) {
+            <small class="error">El salario debe ser mayor a 0.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="modalidad">Modalidad *</label>
+          <p-select
+            inputId="modalidad"
+            formControlName="modalidad"
+            [options]="modalidadesDisponibles"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Selecciona una modalidad"
+            styleClass="w-full" />
+          @if (tieneError('modalidad', 'required')) {
+            <small class="error">La modalidad es obligatoria.</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button pButton type="button" label="Cancelar" severity="secondary" [text]="true" (click)="cancelar()"></button>
+        <button pButton type="submit" label="Publicar oferta" icon="pi pi-check" class="btn-primary" [loading]="guardando"></button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

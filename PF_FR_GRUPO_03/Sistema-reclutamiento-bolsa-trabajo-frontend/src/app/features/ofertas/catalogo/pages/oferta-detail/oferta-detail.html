@@ -1,0 +1,35 @@
+<p-toast></p-toast>
+
+<section class="page-shell py-8 px-4">
+  @if (loading()) {
+    <p>Cargando oferta...</p>
+  } @else if (oferta()) {
+    <app-oferta-detail [oferta]="oferta()!"></app-oferta-detail>
+
+    <div class="acciones-postulacion">
+      @if (isLoadingPostulacion) {
+        <span class="verificando-postulacion">
+          <i class="pi pi-spin pi-spinner"></i> Verificando tu postulación...
+        </span>
+      } @else if (yaPostulo) {
+        <span class="badge-ya-postulado">
+          <i class="pi pi-check-circle"></i> Ya postulaste a esta oferta
+        </span>
+      } @else {
+        <p-button
+          label="Postular ahora"
+          icon="pi pi-send"
+          [loading]="postulando"
+          [disabled]="postulando || oferta()?.estado !== 'ACTIVA'"
+          (onClick)="postular()">
+        </p-button>
+      }
+
+      @if (oferta()?.estado !== 'ACTIVA') {
+        <p class="aviso-estado">Esta oferta ya no acepta postulaciones.</p>
+      }
+    </div>
+  } @else {
+    <p>No se encontró la oferta solicitada.</p>
+  }
+</section>

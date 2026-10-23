@@ -1,0 +1,92 @@
+<div class="page">
+
+  <div class="page-header">
+    <div class="page-title">
+      <h1>Panel de Control</h1>
+      <p>Resumen general de la plataforma</p>
+    </div>
+  </div>
+
+  @if (loadingMetrics()) {
+    <div class="metrics metrics-4">
+      @for (i of [1,2,3,4]; track i) {
+        <div class="metric-card metric-skeleton">
+          <p-skeleton width="60%" height="14px" styleClass="mb-2" />
+          <p-skeleton width="40%" height="28px" />
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="metrics metrics-4">
+      <div class="metric-card">
+        <span class="metric-label">Postulantes</span>
+        <span class="metric-value">{{ totalPostulantes() }}</span>
+      </div>
+      <div class="metric-card empresas">
+        <span class="metric-label">Empresas</span>
+        <span class="metric-value">{{ totalEmpresas() }}</span>
+      </div>
+      <div class="metric-card deshabilitados">
+        <span class="metric-label">Cuentas deshabilitadas</span>
+        <span class="metric-value">{{ totalDeshabilitados() }}</span>
+      </div>
+      <div class="metric-card mensajes">
+        <span class="metric-label">Mensajes de contacto</span>
+        <span class="metric-value">{{ totalMensajes() }}</span>
+      </div>
+    </div>
+  }
+
+  <div class="shortcuts">
+    <button class="shortcut-card" (click)="irAUsuarios()">
+      <i class="pi pi-users"></i>
+      <div>
+        <span class="shortcut-title">Gestión de Usuarios</span>
+        <span class="shortcut-desc">Habilita o deshabilita cuentas de postulantes y empresas</span>
+      </div>
+      <i class="pi pi-arrow-right shortcut-arrow"></i>
+    </button>
+
+    <button class="shortcut-card" (click)="irAMensajes()">
+      <i class="pi pi-envelope"></i>
+      <div>
+        <span class="shortcut-title">Mensajes de Contacto</span>
+        <span class="shortcut-desc">Revisa los mensajes enviados desde la página pública</span>
+      </div>
+      <i class="pi pi-arrow-right shortcut-arrow"></i>
+    </button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-toolbar">
+      <span class="toolbar-title">Últimos mensajes recibidos</span>
+    </div>
+
+    @if (loading()) {
+      <div class="skeleton-wrap">
+        @for (i of [1,2,3]; track i) {
+          <p-skeleton height="52px" styleClass="mb-2" borderRadius="10px" />
+        }
+      </div>
+    } @else if (ultimosMensajes().length === 0) {
+      <div class="empty-state">
+        <i class="pi pi-inbox"></i>
+        <p>Aún no se han recibido mensajes de contacto</p>
+      </div>
+    } @else {
+      <div class="mini-list">
+        @for (mensaje of ultimosMensajes(); track mensaje.id) {
+          <div class="mini-item">
+            <div class="mini-avatar">{{ mensaje.nombre?.[0]?.toUpperCase() }}</div>
+            <div class="mini-info">
+              <span class="mini-nombre">{{ mensaje.nombre }} <span class="mini-email">({{ mensaje.email }})</span></span>
+              <span class="mini-asunto">{{ mensaje.asunto }}</span>
+            </div>
+            <span class="mini-fecha">{{ mensaje.fechaEnvio | date:'dd/MM/yyyy' }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</div>

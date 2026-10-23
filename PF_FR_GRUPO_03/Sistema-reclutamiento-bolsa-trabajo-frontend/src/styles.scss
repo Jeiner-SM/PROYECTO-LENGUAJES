@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+
+
+.p-button{
+    border-radius: 40px !important;
+}
+
+:root {
+  --font-family-sans: 'Inter', sans-serif;
+  --color-primary: #1e5f74;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F9FAFB;
+  color: #111827;
+}

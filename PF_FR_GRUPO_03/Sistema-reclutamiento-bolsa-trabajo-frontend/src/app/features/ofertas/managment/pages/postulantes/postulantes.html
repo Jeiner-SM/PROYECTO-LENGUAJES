@@ -1,0 +1,147 @@
+<div class="page">
+
+  <p-toast />
+
+  <div class="page-header">
+    <button pButton icon="pi pi-arrow-left" [text]="true" severity="secondary" class="back-btn" (click)="volver()"></button>
+    <div class="page-title">
+      <h1>Postulantes</h1>
+      <p>{{ tituloOferta || 'Candidatos que aplicaron a esta oferta' }}</p>
+    </div>
+  </div>
+
+  <div class="table-card">
+
+    @if (loading) {
+      <div class="skeleton-wrap">
+        @for (i of [1,2,3]; track i) {
+          <p-skeleton height="60px" styleClass="mb-2" borderRadius="10px" />
+        }
+      </div>
+    } @else {
+      <p-table
+        [value]="postulaciones"
+        [paginator]="true"
+        [rows]="10"
+        styleClass="p-datatable-sm custom-table"
+        [rowHover]="true"
+        dataKey="id">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Postulante</th>
+            <th>CV</th>
+            <th>Fecha de postulación</th>
+            <th>Estado</th>
+            <th>Cambiar estado</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-postulacion>
+          <tr>
+            <td>
+              <div class="cell-postulante">
+                <div class="avatar">{{ (postulacion.nombrePostulante || '?').charAt(0).toUpperCase() }}</div>
+                <div>
+                  <div class="nombre">{{ postulacion.nombrePostulante }}</div>
+                  <div class="email">{{ postulacion.emailPostulante }}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              @if (postulacion.cvUrl) {
+                <a [href]="postulacion.cvUrl" target="_blank" class="cv-link">
+                  <i class="pi pi-file-pdf"></i> Ver CV
+                </a>
+              } @else if (postulacion.curriculumId) {
+                <a class="cv-link" (click)="verCv(postulacion)">
+                  <i class="pi pi-id-card"></i> Ver CV
+                </a>
+              } @else {
+                <span class="no-cv">Sin CV</span>
+              }
+            </td>
+            <td>{{ postulacion.fechaPostulacion | date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <p-tag [value]="getEstadoLabel(postulacion.estado)" [severity]="getSeverity(postulacion.estado)" />
+            </td>
+            <td>
+              @if (postulacion.estado === 'CANCELADO') {
+                <span class="anulada-label">Anulada por el postulante</span>
+              } @else {
+                <p-select
+                  [options]="estadosDisponibles"
+                  optionLabel="label"
+                  optionValue="value"
+                  [ngModel]="postulacion.estado"
+                  (ngModelChange)="cambiarEstado(postulacion, $event)"
+                  [disabled]="actualizandoId === postulacion.id"
+                  appendTo="body"
+                  styleClass="estado-select" />
+              }
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5">
+              <div class="empty-state">
+                <i class="pi pi-users"></i>
+                <p>Aún no hay postulantes para esta oferta</p>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    }
+
+  </div>
+
+  <p-dialog
+    header="Currículum del candidato"
+    [(visible)]="cvDialogVisible"
+    [modal]="true"
+    [style]="{ width: '32rem' }"
+    styleClass="cv-dialog">
+    @if (cargandoCv) {
+      <p class="cv-cargando"><i class="pi pi-spin pi-spinner"></i> Cargando CV...</p>
+    } @else if (cvSeleccionado) {
+      <div class="cv-detalle">
+        @if (cvSeleccionado.tituloProfesional) {
+          <h3>{{ cvSeleccionado.tituloProfesional }}</h3>
+        }
+        @if (cvSeleccionado.descripcion) {
+          <p class="cv-descripcion">{{ cvSeleccionado.descripcion }}</p>
+        }
+        @if (cvSeleccionado.experiencia) {
+          <div class="cv-seccion">
+            <span class="cv-label">Experiencia</span>
+            <p>{{ cvSeleccionado.experiencia }}</p>
+          </div>
+        }
+        @if (cvSeleccionado.educacion) {
+          <div class="cv-seccion">
+            <span class="cv-label">Educación</span>
+            <p>{{ cvSeleccionado.educacion }}</p>
+          </div>
+        }
+        @if (cvSeleccionado.habilidades) {
+          <div class="cv-seccion">
+            <span class="cv-label">Habilidades</span>
+            <p>{{ cvSeleccionado.habilidades }}</p>
+          </div>
+        }
+        <div class="cv-contacto">
+          @if (cvSeleccionado.telefono) {
+            <span><i class="pi pi-phone"></i> {{ cvSeleccionado.telefono }}</span>
+          }
+          @if (cvSeleccionado.linkedin) {
+            <a [href]="cvSeleccionado.linkedin" target="_blank"><i class="pi pi-linkedin"></i> LinkedIn</a>
+          }
+        </div>
+      </div>
+    }
+  </p-dialog>
+</div>

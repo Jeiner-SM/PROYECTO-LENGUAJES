@@ -1,0 +1,111 @@
+.page {
+  padding: 2rem;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+}
+
+.table-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.skeleton-wrap {
+  padding: 1.2rem 1.4rem;
+}
+
+.cell-titulo {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.9rem;
+}
+
+.cell-empresa {
+  font-size: 0.875rem;
+  color: #334155;
+}
+
+.cell-fecha {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.sin-acciones {
+  color: #cbd5e1;
+}
+
+.empty-state {
+  padding: 3rem;
+  text-align: center;
+  color: #94a3b8;
+
+  i {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  p { margin: 0 0 0.5rem; font-size: 0.9rem; }
+
+  .empty-link {
+    color: #1e5f74;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+}
+
+::ng-deep {
+  .custom-table {
+    .p-datatable-thead > tr > th {
+      background: #f8fafc !important;
+      color: #64748b !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 0.9rem 1rem !important;
+    }
+
+    .p-datatable-tbody > tr {
+      border-bottom: 1px solid #f1f5f9 !important;
+
+      > td {
+        padding: 0.85rem 1rem !important;
+        border: none !important;
+      }
+
+      &:hover > td {
+        background: #f8fafc !important;
+      }
+    }
+
+    .p-paginator {
+      background: transparent !important;
+      border-top: 1px solid #f1f5f9 !important;
+      padding: 0.75rem 1rem !important;
+      font-size: 0.85rem;
+    }
+  }
+}

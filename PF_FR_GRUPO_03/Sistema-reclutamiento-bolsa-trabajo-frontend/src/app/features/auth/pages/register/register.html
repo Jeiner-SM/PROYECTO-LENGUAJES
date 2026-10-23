@@ -1,0 +1,59 @@
+<div class="page-shell py-16 bg-gray-50 min-h-screen">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="rounded-[32px] bg-white shadow-xl overflow-hidden">
+      <div class="p-12 bg-[#f1f8fb]">
+        <div class="mb-6">
+          <button type="button" class="inline-flex items-center gap-2 rounded-full border border-[#cbd5e1] bg-white px-4 py-2 text-sm font-semibold text-[#1e5f74] shadow-sm transition hover:bg-[#eef8fb]" routerLink="/auth/login">
+            <i class="pi pi-arrow-left"></i>
+            Atrás
+          </button>
+        </div>
+
+        <div class="mb-8">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[#1e5f74]">TalentHub</p>
+          <h1 class="mt-5 text-4xl font-bold text-[#0f172a]">¿Cómo quieres usar TalentHub?</h1>
+          <p class="mt-4 text-base text-[#475569] leading-relaxed">
+            Selecciona el tipo de cuenta que mejor se adapte a tus necesidades.
+          </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2">
+          <a routerLink="/auth/register/postulante" class="block rounded-3xl border border-[#dbeafe] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#1e5f74]">
+            <div class="flex items-center gap-4 mb-4">
+              <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef2ff] text-[#1e40af] text-2xl">
+                <i class="pi pi-user"></i>
+              </span>
+              <div>
+                <h2 class="text-xl font-semibold text-[#0f172a]">Soy Postulante</h2>
+                <p class="text-sm text-[#64748b]">Busco trabajo y quiero conectar con empresas que necesitan mi talento.</p>
+              </div>
+            </div>
+            <ul class="space-y-2 text-sm text-[#475569]">
+              <li class="flex items-start gap-2"><i class="pi pi-check text-[#22c55e]"></i>Busca entre miles de ofertas</li>
+              <li class="flex items-start gap-2"><i class="pi pi-check text-[#22c55e]"></i>Crea y gestiona tu CV</li>
+              <li class="flex items-start gap-2"><i class="pi pi-check text-[#22c55e]"></i>Haz seguimiento de postulaciones</li>
+            </ul>
+          </a>
+
+          <a routerLink="/auth/register/empresa" class="block rounded-3xl border border-[#e2e8f0] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#1e5f74]">
+            <div class="flex items-center gap-4 mb-4">
+              <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e2f7f7] text-[#0f766e] text-2xl">
+                <i class="pi pi-building"></i>
+              </span>
+              <div>
+                <h2 class="text-xl font-semibold text-[#0f172a]">Soy Empresa</h2>
+                <p class="text-sm text-[#64748b]">Quiero publicar ofertas y contratar a los mejores profesionales.</p>
+              </div>
+            </div>
+            <ul class="space-y-2 text-sm text-[#475569]">
+              <li class="flex items-start gap-2"><i class="pi pi-check text-[#22c55e]"></i>Publica ofertas laborales</li>
+              <li class="flex items-start gap-2"><i class="pi pi-check text-[#22c55e]"></i>Gestiona candidatos</li>
+              <li class="flex items-start gap-2"><i class="pi pi-check text-[#22c55e]"></i>Programa entrevistas</li>
+            </ul>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

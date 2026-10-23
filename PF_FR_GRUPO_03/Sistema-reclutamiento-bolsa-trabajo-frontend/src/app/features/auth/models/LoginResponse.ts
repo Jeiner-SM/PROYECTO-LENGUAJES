@@ -1,0 +1,10 @@
+
+export interface LoginResponse{
+    accessToken:string;
+    refreshToken:string;
+    tokenType:string;
+    expiresIn: number;
+    email: string;
+    rol: string;
+    permisos: string[];
+}

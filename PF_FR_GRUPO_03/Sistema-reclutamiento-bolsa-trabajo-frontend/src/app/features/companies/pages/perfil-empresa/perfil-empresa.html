@@ -1,0 +1,86 @@
+<div class="page">
+
+  <p-toast />
+
+  <div class="page-header">
+    <div class="page-title">
+      <h1>Configuración de Cuenta</h1>
+      <p>Administra los datos públicos y de contacto de tu empresa</p>
+    </div>
+    @if (!loading) {
+      <p-tag [value]="getEstadoLabel()" [severity]="getEstadoSeverity()" />
+    }
+  </div>
+
+  @if (loading) {
+    <div class="form-card">
+      <p>Cargando tu perfil...</p>
+    </div>
+  } @else {
+    <div class="form-card">
+
+      <div class="readonly-info">
+        <div class="info-item">
+          <span class="info-label">Correo de la cuenta</span>
+          <span class="info-value">{{ email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">RUC</span>
+          <span class="info-value">{{ ruc }}</span>
+        </div>
+      </div>
+
+      <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+
+        <div class="field-row">
+          <div class="field">
+            <label for="nombreEmpresa">Nombre comercial *</label>
+            <input pInputText id="nombreEmpresa" formControlName="nombreEmpresa" class="w-full" />
+            @if (tieneError('nombreEmpresa', 'required')) {
+              <small class="error">El nombre de la empresa es obligatorio.</small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="razonSocial">Razón social *</label>
+            <input pInputText id="razonSocial" formControlName="razonSocial" class="w-full" />
+            @if (tieneError('razonSocial', 'required')) {
+              <small class="error">La razón social es obligatoria.</small>
+            }
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="descripcion">Descripción</label>
+          <textarea
+            id="descripcion"
+            formControlName="descripcion"
+            rows="4"
+            class="textarea-field"
+            placeholder="Cuéntale a los postulantes sobre tu empresa..."></textarea>
+          @if (tieneError('descripcion', 'maxlength')) {
+            <small class="error">La descripción no debe superar los 500 caracteres.</small>
+          }
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="direccion">Dirección</label>
+            <input pInputText id="direccion" formControlName="direccion" class="w-full" />
+          </div>
+
+          <div class="field">
+            <label for="paginaWeb">Página web</label>
+            <input pInputText id="paginaWeb" formControlName="paginaWeb" placeholder="https://..." class="w-full" />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button pButton type="submit" label="Guardar cambios" icon="pi pi-check" class="btn-primary" [loading]="guardando"></button>
+        </div>
+
+      </form>
+    </div>
+  }
+
+</div>

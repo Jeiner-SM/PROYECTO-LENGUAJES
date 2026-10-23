@@ -1,0 +1,213 @@
+.page {
+  padding: 2rem;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+// ── Header ────────────────────────────────────────────
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+}
+
+.btn-primary {
+  background: #0f3d56 !important;
+  border-color: #0f3d56 !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+
+// ── Métricas ──────────────────────────────────────────
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-left: 4px solid #e2e8f0;
+
+  &.activas { border-left-color: #22c55e; }
+  &.cerradas { border-left-color: #ef4444; }
+
+  .metric-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1;
+  }
+}
+
+// ── Tabla ─────────────────────────────────────────────
+.table-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-toolbar {
+  padding: 1.2rem 1.4rem;
+  border-bottom: 1px solid #f1f5f9;
+
+  .search-input {
+    width: 320px;
+    border-radius: 10px !important;
+    border-color: #e2e8f0 !important;
+    font-size: 0.875rem;
+
+    &:focus { border-color: #0f3d56 !important; }
+  }
+}
+
+.skeleton-wrap {
+  padding: 1.2rem 1.4rem;
+}
+
+// ── Celdas ────────────────────────────────────────────
+.cell-titulo {
+  .titulo {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.9rem;
+  }
+}
+
+.cell-empresa {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .empresa-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0f3d56, #1c5a7d);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: #334155;
+    font-weight: 500;
+  }
+}
+
+.cell-ubicacion {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #64748b;
+  font-size: 0.875rem;
+
+  i { font-size: 0.75rem; color: #94a3b8; }
+}
+
+.cell-salario {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.9rem;
+}
+
+.tag-modalidad {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.cell-actions {
+  display: flex;
+  gap: 2px;
+}
+
+// ── Empty ─────────────────────────────────────────────
+.empty-state {
+  padding: 3rem;
+  text-align: center;
+  color: #94a3b8;
+
+  i {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  p { margin: 0; font-size: 0.9rem; }
+}
+
+// ── Override PrimeNG ──────────────────────────────────
+::ng-deep {
+  .custom-table {
+    .p-datatable-thead > tr > th {
+      background: #f8fafc !important;
+      color: #64748b !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 0.9rem 1rem !important;
+    }
+
+    .p-datatable-tbody > tr {
+      border-bottom: 1px solid #f1f5f9 !important;
+
+      > td {
+        padding: 0.85rem 1rem !important;
+        border: none !important;
+      }
+
+      &:hover > td {
+        background: #f8fafc !important;
+      }
+    }
+
+    .p-paginator {
+      background: transparent !important;
+      border-top: 1px solid #f1f5f9 !important;
+      padding: 0.75rem 1rem !important;
+      font-size: 0.85rem;
+    }
+  }
+}

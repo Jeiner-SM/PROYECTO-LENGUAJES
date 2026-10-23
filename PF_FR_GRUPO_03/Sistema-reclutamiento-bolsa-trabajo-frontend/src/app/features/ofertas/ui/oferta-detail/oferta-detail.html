@@ -1,0 +1,38 @@
+<div class="oferta-detail">
+
+  <div class="header">
+
+    <div class="avatar">
+      {{ resultado }}
+    </div>
+
+    <div class="info">
+      <h1>{{ oferta.titulo }}</h1>
+      <h2>{{ oferta.nombreEmpresa }}</h2>
+
+      <div class="meta">
+        <span>📍 {{ oferta.ubicacion }}</span>
+        <span>💰 S/ {{ oferta.salario }}</span>
+      </div>
+    </div>
+
+    <span
+      class="estado"
+      [class.activo]="isActiva"
+      [class.cerrado]="!isActiva">
+      {{ estadoLabel }}
+    </span>
+
+  </div>
+
+  <div class="body">
+
+    <h3>Descripción del puesto</h3>
+
+    <p>
+      {{ oferta.descripcion }}
+    </p>
+
+  </div>
+
+</div>

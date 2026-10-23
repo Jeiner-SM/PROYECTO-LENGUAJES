@@ -1,0 +1,27 @@
+.page-shell {
+  background: #f3f4f6;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #374151;
+}
+
+input,
+textarea {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db;
+  padding: 0.85rem 1rem;
+  background: #f9fafb;
+}
+
+button.p-button {
+  padding: 1rem 1.5rem;
+}

@@ -1,0 +1,110 @@
+<div class="page-shell py-16 bg-gray-50 min-h-screen">
+  <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-lg overflow-hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="p-10 bg-[#1e5f74] text-white">
+        <h1 class="text-3xl font-bold mb-4">Registro de Postulante</h1>
+        <p class="text-sm leading-relaxed text-gray-200">
+          Completa tu perfil y empieza a postular a las mejores oportunidades.
+        </p>
+
+        <div class="mt-8 space-y-5 text-sm text-gray-200">
+          <div>
+            <span class="font-semibold">Datos personales</span>
+            <p>Tu nombre, apellido y correo para crear tu cuenta.</p>
+          </div>
+          <div>
+            <span class="font-semibold">Perfil</span>
+            <p>Tu dirección nos ayuda a mostrarte ofertas cercanas a ti.</p>
+          </div>
+          <div>
+            <span class="font-semibold">Más rápido</span>
+            <p>Regístrate ahora y empieza a recibir ofertas a tu medida.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-10">
+        <div class="mb-6">
+          <button
+            type="button"
+            pButton
+            label="Atrás"
+            icon="pi pi-arrow-left"
+            severity="secondary"
+            [outlined]="true"
+            (click)="goBack()"></button>
+        </div>
+        <form [formGroup]="postulanteForm" (ngSubmit)="registrar()" class="space-y-6">
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Nombre</label>
+              <input type="text" pInputText formControlName="nombre" placeholder="Ej. María" />
+              @if (tieneError('nombre', 'required')) {
+                <small class="error-text">El nombre es obligatorio.</small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="label">Apellido</label>
+              <input type="text" pInputText formControlName="apellido" placeholder="Ej. López" />
+              @if (tieneError('apellido', 'required')) {
+                <small class="error-text">El apellido es obligatorio.</small>
+              }
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="label">Correo electrónico</label>
+            <input type="email" pInputText formControlName="correo" placeholder="correo@ejemplo.com" />
+            @if (tieneError('correo', 'required')) {
+              <small class="error-text">El correo es obligatorio.</small>
+            }
+            @if (tieneError('correo', 'email')) {
+              <small class="error-text">Ingresa un correo válido.</small>
+            }
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Contraseña</label>
+              <p-password formControlName="password" placeholder="Mínimo 6 caracteres" [toggleMask]="true" [feedback]="false"></p-password>
+              @if (tieneError('password', 'required')) {
+                <small class="error-text">La contraseña es obligatoria.</small>
+              }
+              @if (tieneError('password', 'minlength')) {
+                <small class="error-text">Debe tener al menos 6 caracteres.</small>
+              }
+            </div>
+            <div class="form-group">
+              <label class="label">Dirección</label>
+              <input type="text" pInputText formControlName="direccion" placeholder="Ej. Lima, Perú" />
+              @if (tieneError('direccion', 'required')) {
+                <small class="error-text">La dirección es obligatoria.</small>
+              }
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Género <span class="optional">(opcional)</span></label>
+              <p-select
+                formControlName="genero"
+                [options]="generosDisponibles"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Selecciona una opción"
+                styleClass="w-full" />
+            </div>
+            <div class="form-group">
+              <label class="label">Fecha de nacimiento <span class="optional">(opcional)</span></label>
+              <input type="date" pInputText formControlName="fechaNacimiento" />
+            </div>
+          </div>
+
+          <button type="submit" pButton label="Registrar postulante" class="w-full !bg-[#1e5f74] !border-none !text-white" [disabled]="loading" [loading]="loading"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

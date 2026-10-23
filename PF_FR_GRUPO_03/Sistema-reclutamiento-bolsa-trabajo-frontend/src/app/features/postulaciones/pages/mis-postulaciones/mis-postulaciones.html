@@ -1,0 +1,91 @@
+<p-toast></p-toast>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="page-title">
+      <h1>Mis Postulaciones</h1>
+      <p>Revisa el estado de tus postulaciones y anúlalas si ya no te interesan.</p>
+    </div>
+  </div>
+
+  <div class="table-card">
+
+    @if (loading()) {
+      <div class="skeleton-wrap">
+        @for (i of [1,2,3,4]; track i) {
+          <p-skeleton height="52px" styleClass="mb-2" borderRadius="10px" />
+        }
+      </div>
+    } @else {
+      <p-table
+        [value]="postulaciones()"
+        [paginator]="true"
+        [rows]="8"
+        [rowsPerPageOptions]="[8, 15, 30]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="{first}–{last} de {totalRecords} postulaciones"
+        paginatorDropdownAppendTo="body"
+        styleClass="p-datatable-sm custom-table"
+        [rowHover]="true"
+        dataKey="id">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Oferta</th>
+            <th>Empresa</th>
+            <th>Fecha de postulación</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-postulacion>
+          <tr>
+            <td>
+              <span class="cell-titulo">{{ postulacion.ofertaTitulo }}</span>
+            </td>
+            <td>
+              <span class="cell-empresa">{{ postulacion.nombreEmpresa || 'No especificada' }}</span>
+            </td>
+            <td>
+              <span class="cell-fecha">{{ postulacion.fechaPostulacion | date: 'dd/MM/yyyy HH:mm' }}</span>
+            </td>
+            <td>
+              <p-tag [value]="postulacion.estado" [severity]="getSeverity(postulacion.estado)" />
+            </td>
+            <td>
+              @if (puedeCancelar(postulacion)) {
+                <button
+                  pButton
+                  label="Anular"
+                  icon="pi pi-times-circle"
+                  [text]="true"
+                  severity="danger"
+                  [loading]="cancelandoId() === postulacion.id"
+                  (click)="cancelar(postulacion)">
+                </button>
+              } @else {
+                <span class="sin-acciones">—</span>
+              }
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5">
+              <div class="empty-state">
+                <i class="pi pi-inbox"></i>
+                <p>Todavía no te has postulado a ninguna oferta.</p>
+                <a routerLink="/dashboard/ofertas" class="empty-link">Buscar empleos</a>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    }
+
+  </div>
+</div>

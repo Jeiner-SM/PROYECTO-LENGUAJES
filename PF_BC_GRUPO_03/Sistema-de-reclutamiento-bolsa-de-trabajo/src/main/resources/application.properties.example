@@ -1,0 +1,29 @@
+spring.application.name=SistemaDeReclutamiento
+
+# --- Supabase (PostgreSQL) ---
+# Dashboard → Project Settings → Database → Connection string → URI / JDBC
+# Recomendado: Session pooler (puerto 5432) o conexión Direct para Flyway + JPA.
+#
+# Ejemplo JDBC (reemplaza HOST, PROJECT_REF y contraseña):
+# jdbc:postgresql://HOST:5432/postgres?sslmode=require
+# Usuario típico del pooler: postgres.PROJECT_REF
+
+# Conexión Direct (Flyway): host db.<REFERENCE_ID>.supabase.co, usuario postgres
+spring.datasource.url=jdbc:postgresql://db.TU_REFERENCE_ID.supabase.co:5432/postgres?sslmode=require
+spring.datasource.username=postgres
+spring.datasource.password=TU_DATABASE_PASSWORD
+
+# Session pooler (alternativa): host del pooler + usuario postgres.TU_REFERENCE_ID
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+spring.flyway.enabled=true
+spring.flyway.locations=classpath:db/migration
+
+jwt.secret=genera_una_clave_larga_y_aleatoria_aqui
+jwt.expiration=900000
+
+logging.level.root=INFO

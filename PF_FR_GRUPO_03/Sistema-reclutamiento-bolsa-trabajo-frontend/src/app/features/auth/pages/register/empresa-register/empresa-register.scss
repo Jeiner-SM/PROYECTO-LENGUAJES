@@ -1,0 +1,99 @@
+.page-shell {
+  background: #f3f4f6;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.optional {
+  font-weight: 400;
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 0.5rem 0;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 0.8rem;
+}
+
+input,
+textarea,
+.p-password {
+  width: 100%;
+}
+
+// El grid de 2 columnas (md:grid-cols-2) usa tracks "auto" por defecto, que se
+// expanden al max-content del elemento más ancho. Sin min-width: 0 en la celda,
+// el <p-password> puede forzar la columna a crecer y desbordar en desktop.
+.form-group {
+  min-width: 0;
+}
+
+// <p-password> es un elemento custom de Angular: por defecto el navegador lo
+// trata como "display: inline", por lo que "width: 100%" no surte efecto y su
+// ancho depende del contenido interno, provocando el desborde. Se usa
+// ::ng-deep porque el input real vive dentro de la vista interna del
+// componente PrimeNG (fuera del alcance de la encapsulación de este componente).
+:host ::ng-deep .p-password {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep .p-password .p-password-input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db;
+  // Padding derecho extra para que el texto no quede debajo del ícono del ojo
+  // (PrimeNG 20 usa .p-password-toggle-mask-icon, no .p-password-toggle).
+  padding: 0.85rem 2.75rem 0.85rem 1rem;
+  background: #f9fafb;
+  color: #0f172a;
+  font-size: 1rem;
+  min-height: 3rem;
+}
+
+:host ::ng-deep .p-password .p-password-toggle-mask-icon {
+  color: #6b7280;
+  cursor: pointer;
+
+  &:hover {
+    color: #1e5f74;
+  }
+}
+
+input,
+textarea {
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db;
+  padding: 0.85rem 1rem;
+  background: #f9fafb;
+  box-sizing: border-box;
+  min-height: 3rem;
+}
+
+textarea {
+  min-height: unset;
+}
+
+button.p-button {
+  padding: 1rem 1.5rem;
+}

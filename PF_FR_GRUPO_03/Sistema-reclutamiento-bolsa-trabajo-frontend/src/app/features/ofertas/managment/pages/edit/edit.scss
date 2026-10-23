@@ -1,0 +1,111 @@
+.page {
+  padding: 2rem;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.page-header {
+  margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+}
+
+.form-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 720px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.3rem;
+  flex: 1;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  input {
+    border-radius: 10px !important;
+  }
+
+  .textarea-field {
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+
+    &:focus {
+      outline: none;
+      border-color: #0f3d56;
+    }
+  }
+
+  .error {
+    color: #ef4444;
+    font-size: 0.78rem;
+  }
+}
+
+.field-row {
+  display: flex;
+  gap: 1.2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.w-full {
+  width: 100%;
+}
+
+::ng-deep {
+  .p-inputnumber, .p-select {
+    width: 100%;
+  }
+
+  .p-inputnumber-input {
+    width: 100%;
+    border-radius: 10px !important;
+  }
+
+  .p-select {
+    border-radius: 10px !important;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-primary {
+  background: #0f3d56 !important;
+  border-color: #0f3d56 !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}

@@ -1,0 +1,56 @@
+<div class="page-shell py-16 bg-gray-50 min-h-screen">
+  <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-lg overflow-hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="p-10 bg-[#1e5f74] text-white">
+        <h1 class="text-3xl font-bold mb-4">Editar datos de postulante</h1>
+        <p class="text-sm leading-relaxed text-gray-200">
+          Ajusta tu información para mantener tu perfil actualizado y mejorar tus posibilidades.
+        </p>
+      </div>
+      <div class="p-10">
+        <form [formGroup]="postulanteForm" (ngSubmit)="guardarCambios()" class="space-y-6">
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Nombre completo</label>
+              <input type="text" pInputText formControlName="nombreCompleto" placeholder="Ej. María López" />
+            </div>
+            <div class="form-group">
+              <label class="label">Correo electrónico</label>
+              <input type="email" pInputText formControlName="correo" placeholder="correo@ejemplo.com" />
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Contraseña</label>
+              <p-password formControlName="password" placeholder="Mínimo 6 caracteres" [toggleMask]="true" [feedback]="false"></p-password>
+            </div>
+            <div class="form-group">
+              <label class="label">Teléfono</label>
+              <input type="text" pInputText formControlName="telefono" placeholder="987654321" />
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="form-group">
+              <label class="label">Profesión</label>
+              <input type="text" pInputText formControlName="profesion" placeholder="Ej. Diseñador UX/UI" />
+            </div>
+            <div class="form-group">
+              <label class="label">Ciudad</label>
+              <input type="text" pInputText formControlName="ciudad" placeholder="Lima" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="label">Resumen profesional</label>
+            <textarea pInputText rows="4" formControlName="resumen" placeholder="Cuéntanos sobre tu experiencia..."></textarea>
+          </div>
+
+          <button type="submit" pButton label="Guardar cambios" class="w-full !bg-[#1e5f74] !text-white" [disabled]="loading"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>
