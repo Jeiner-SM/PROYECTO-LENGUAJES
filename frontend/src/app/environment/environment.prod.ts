@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
-    apiUrl: 'http://localhost:8080/api',
-    apiBaseUrl: 'http://localhost:8080',
+  production: true,
+  apiUrl: 'https://proyecto-lenguajes-jwxl.onrender.com/api',
+  apiBaseUrl: 'https://proyecto-lenguajes-jwxl.onrender.com'
 };
