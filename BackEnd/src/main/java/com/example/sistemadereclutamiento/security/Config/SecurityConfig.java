@@ -1,6 +1,5 @@
 package com.example.sistemadereclutamiento.security.Config;
 
-
 import com.example.sistemadereclutamiento.security.filter.JwtAuthenticationFilter;
 import com.example.sistemadereclutamiento.security.service.CustomUserDetailsService;
 import com.example.sistemadereclutamiento.shared.exeption.JwtAccesDeniedHandler;
@@ -33,121 +32,104 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccesDeniedHandler jwtAccesDeniedHandler;
-    private final CustomUserDetailsService UserDetailService;
-    private final JwtAuthenticationFilter filter;
+        private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+        private final JwtAccesDeniedHandler jwtAccesDeniedHandler;
+        private final CustomUserDetailsService UserDetailService;
+        private final JwtAuthenticationFilter filter;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-                .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable())
+                http
+                                .cors(Customizer.withDefaults())
+                                .csrf(csrf -> csrf.disable())
 
-                .exceptionHandling(exception ->
-                        exception
-                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                                .accessDeniedHandler(jwtAccesDeniedHandler)
-                )
+                                .exceptionHandling(exception -> exception
+                                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                                                .accessDeniedHandler(jwtAccesDeniedHandler))
 
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                .userDetailsService(UserDetailService)
+                                .userDetailsService(UserDetailService)
 
-                .authorizeHttpRequests(auth -> auth
+                                .authorizeHttpRequests(auth -> auth
 
+                                                .requestMatchers(
+                                                                "/api/auth/**",
+                                                                "/swagger-ui/**",
+                                                                "/v3/api-docs/**",
+                                                                "/uploads/**")
+                                                .permitAll()
 
-                        .requestMatchers(
-                                "/api/auth/**",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/uploads/**"
-                        ).permitAll()
+                                                .requestMatchers(
+                                                                "/api/usuarios/postulante/register",
+                                                                "/api/usuarios/empresa/register")
+                                                .permitAll()
 
+                                                .requestMatchers(
+                                                                HttpMethod.GET,
+                                                                "/api/ofertas/public/**")
+                                                .permitAll()
 
-                        .requestMatchers(
-                                "/api/usuarios/postulante/register",
-                                "/api/usuarios/empresa/register"
-                        ).permitAll()
+                                                // Catálogo público de empresas (home, listado de empresas en el
+                                                // frontend)
+                                                .requestMatchers(
+                                                                HttpMethod.GET,
+                                                                "/api/empresas")
+                                                .permitAll()
 
+                                                // Formulario público de contacto (footer / página /contacto del
+                                                // frontend)
+                                                .requestMatchers(
+                                                                HttpMethod.POST,
+                                                                "/api/contacto")
+                                                .permitAll()
 
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/ofertas/public/**"
-                        ).permitAll()
+                                                .anyRequest().authenticated())
 
+                                .addFilterBefore(
+                                                filter,
+                                                UsernamePasswordAuthenticationFilter.class);
 
-                        // Catálogo público de empresas (home, listado de empresas en el frontend)
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/empresas"
-                        ).permitAll()
+                return http.build();
+        }
 
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-                        // Formulario público de contacto (footer / página /contacto del frontend)
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/api/contacto"
-                        ).permitAll()
+        @Bean
+        public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+                return config.getAuthenticationManager();
+        }
 
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
 
-                        .anyRequest().authenticated()
-                )
+                CorsConfiguration config = new CorsConfiguration();
 
-                .addFilterBefore(
-                        filter,
-                        UsernamePasswordAuthenticationFilter.class
-                );
+                config.setAllowedOrigins(List.of(
+                                "http://localhost:4200",
+                                "https://proyecto-lenguajes-kappa.vercel.app",
+                                "https://proyecto-lenguajes-gkgj0mg3k-jeiner1.vercel.app"));
 
-        return http.build();
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return  new BCryptPasswordEncoder();
-    }
+                config.setAllowedMethods(List.of(
+                                "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
-        return config.getAuthenticationManager();
-    }
+                config.setAllowedHeaders(List.of(
+                                "Authorization",
+                                "Content-Type",
+                                "Accept"));
 
-    @Bean
-public CorsConfigurationSource corsConfigurationSource() {
+                config.setExposedHeaders(List.of("Authorization"));
+                config.setAllowCredentials(true);
 
-    CorsConfiguration config = new CorsConfiguration();
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-    config.setAllowedOrigins(List.of(
-            "http://localhost:4200",
-            "https://proyecto-lenguajes-kappa.vercel.app"
-    ));
+                source.registerCorsConfiguration("/**", config);
 
-    config.setAllowedMethods(List.of(
-            "GET",
-            "POST",
-            "PUT",
-            "PATCH",
-            "DELETE",
-            "OPTIONS"
-    ));
-
-    config.setAllowedHeaders(List.of(
-            "Authorization",
-            "Content-Type",
-            "Accept"
-    ));
-
-    config.setExposedHeaders(List.of("Authorization"));
-
-    config.setAllowCredentials(true);
-
-    UrlBasedCorsConfigurationSource source =
-            new UrlBasedCorsConfigurationSource();
-
-    source.registerCorsConfiguration("/**", config);
-
-    return source;
-}
+                return source;
+        }
 }
